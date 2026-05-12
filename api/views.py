@@ -1,8 +1,9 @@
-from rest_framework.generics import ListCreateAPIView
-from .models import Book, Category
-from .serializers import BookSerializer, CategorySerializer
-from drf_spectacular.utils import extend_schema
+from .serializers import BookSerializer, CategoryDetailSerializer
+from rest_framework.generics import ListCreateAPIView, RetrieveAPIView
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
+from .models import Book, Category
+from drf_spectacular.utils import extend_schema, extend_schema_view
+
 
 @extend_schema(
     summary="Получение списка книг",
@@ -29,27 +30,44 @@ class BookDetailAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
+###
 @extend_schema(
     summary="Получение списка категорий книг",
     description="Этот эндпоинт позволяет получить список всех категорий книг в базе данных. "
                 "Вы также можете добавить новую категорию с помощью POST-запроса.",
-    responses={200: CategorySerializer(many=True)}
+    responses={200: CategoryDetailSerializer(many=True)}
 )
 class CategoryListCreateAPIView(ListCreateAPIView):
     queryset = Category.objects.all()
-    serializer_class = CategorySerializer
+    serializer_class = CategoryDetailSerializer
 
+###
+@extend_schema_view(
+       get=extend_schema(
+           description="Получение категории с вложенными данными (книги в категории).",
+           summary="Детальная категория с книгами"
+       )
+   )
+
+class CategoryDetailView(RetrieveAPIView):
+    """
+    Представление для работы с отдельной категорией книг: просмотр, обновление и удаление.
+    """
+    queryset = Category.objects.prefetch_related('books')
+    serializer_class = CategoryDetailSerializer
+
+###   
 @extend_schema(
-    summary="Работа с конкретной категорией книг",
-    description="Позволяет получить информацию о категории, обновить её описание или удалить.",
+    summary="Работа с конкретной книгой",
+    description="Позволяет получить информацию о категории книг, обновить её данные или удалить.",
     responses={
-        200: CategorySerializer,
+        200: CategoryDetailSerializer,
         204: None
     }
 )
-class CategoryDetailAPIView(RetrieveUpdateDestroyAPIView):
+class CategoryRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     """
     Представление для работы с отдельной категорией книг: просмотр, обновление и удаление.
     """
     queryset = Category.objects.all()
-    serializer_class = CategorySerializer
+    serializer_class = CategoryDetailSerializer
