@@ -1,0 +1,680 @@
+openapi: 3.0.3
+info:
+  title: My Project API
+  version: 1.0.0
+  description: Документация API для учебного проекта
+paths:
+  /api/books/:
+    get:
+      operationId: books_list
+      description: Этот эндпоинт позволяет получить список всех книг в базе данных.
+        Вы также можете добавить новую книгу с помощью POST-запроса.
+      summary: Получение списка книг
+      tags:
+      - books
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+          description: ''
+    post:
+      operationId: books_create
+      description: Этот эндпоинт позволяет получить список всех книг в базе данных.
+        Вы также можете добавить новую книгу с помощью POST-запроса.
+      summary: Получение списка книг
+      tags:
+      - books
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Book'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Book'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+          description: ''
+  /api/books/{id}/:
+    get:
+      operationId: books_retrieve
+      description: Позволяет получить информацию о книге, обновить её данные или удалить.
+      summary: Работа с конкретной книгой
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - books
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+          description: ''
+        '204':
+          description: No response body
+    put:
+      operationId: books_update
+      description: Позволяет получить информацию о книге, обновить её данные или удалить.
+      summary: Работа с конкретной книгой
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - books
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Book'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Book'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+          description: ''
+        '204':
+          description: No response body
+    patch:
+      operationId: books_partial_update
+      description: Позволяет получить информацию о книге, обновить её данные или удалить.
+      summary: Работа с конкретной книгой
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - books
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedBook'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedBook'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedBook'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+          description: ''
+        '204':
+          description: No response body
+    delete:
+      operationId: books_destroy
+      description: Позволяет получить информацию о книге, обновить её данные или удалить.
+      summary: Работа с конкретной книгой
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - books
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+          description: ''
+        '204':
+          description: No response body
+  /api/category/:
+    get:
+      operationId: category_list
+      description: Этот эндпоинт позволяет получить список всех категорий книг в базе
+        данных. Вы также можете добавить новую категорию с помощью POST-запроса.
+      summary: Получение списка категорий книг
+      tags:
+      - category
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategoryDetail'
+          description: ''
+    post:
+      operationId: category_create
+      description: Этот эндпоинт позволяет получить список всех категорий книг в базе
+        данных. Вы также можете добавить новую категорию с помощью POST-запроса.
+      summary: Получение списка категорий книг
+      tags:
+      - category
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CategoryDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CategoryDetail'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategoryDetail'
+          description: ''
+  /api/category/{id}/:
+    get:
+      operationId: category_retrieve
+      description: Позволяет получить информацию о категории книг, обновить её данные
+        или удалить.
+      summary: Работа с конкретной книгой
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - category
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDetail'
+          description: ''
+        '204':
+          description: No response body
+    put:
+      operationId: category_update
+      description: Позволяет получить информацию о категории книг, обновить её данные
+        или удалить.
+      summary: Работа с конкретной книгой
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - category
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CategoryDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CategoryDetail'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDetail'
+          description: ''
+        '204':
+          description: No response body
+    patch:
+      operationId: category_partial_update
+      description: Позволяет получить информацию о категории книг, обновить её данные
+        или удалить.
+      summary: Работа с конкретной книгой
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - category
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCategoryDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCategoryDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCategoryDetail'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDetail'
+          description: ''
+        '204':
+          description: No response body
+    delete:
+      operationId: category_destroy
+      description: Позволяет получить информацию о категории книг, обновить её данные
+        или удалить.
+      summary: Работа с конкретной книгой
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - category
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDetail'
+          description: ''
+        '204':
+          description: No response body
+  /api/category/{id}/detail:
+    get:
+      operationId: category_detail_retrieve
+      description: Получение категории с вложенными данными (книги в категории).
+      summary: Детальная категория с книгами
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - category
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDetail'
+          description: ''
+  /api/schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - ht
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - ug
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          title: Название книги
+          description: Название книги
+          maxLength: 255
+        author:
+          type: string
+          title: Автор
+          description: Автор книги
+          maxLength: 255
+        published_date:
+          type: string
+          format: date
+          title: Дата публикации
+          description: Дата публикации (формат YYYY-MM-DD)
+        isbn:
+          type: string
+          description: Уникальный ISBN номер книги
+          maxLength: 13
+        page_count:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          title: Количество страниц
+          description: Количество страниц
+        cover:
+          type: string
+          format: uri
+          title: Обложка книги (URL)
+          description: Ссылка на изображение обложки
+          maxLength: 200
+        category:
+          type: integer
+          nullable: true
+          title: Категория
+      required:
+      - author
+      - id
+      - isbn
+      - page_count
+      - published_date
+      - title
+    CategoryDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        books:
+          type: array
+          items:
+            $ref: '#/components/schemas/Book'
+          readOnly: true
+        title:
+          type: string
+          title: Название категории
+          description: Название категории
+          maxLength: 255
+        description:
+          type: string
+          title: Описание категории
+          description: Описание категории
+      required:
+      - books
+      - id
+      - title
+    PatchedBook:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          title: Название книги
+          description: Название книги
+          maxLength: 255
+        author:
+          type: string
+          title: Автор
+          description: Автор книги
+          maxLength: 255
+        published_date:
+          type: string
+          format: date
+          title: Дата публикации
+          description: Дата публикации (формат YYYY-MM-DD)
+        isbn:
+          type: string
+          description: Уникальный ISBN номер книги
+          maxLength: 13
+        page_count:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+          title: Количество страниц
+          description: Количество страниц
+        cover:
+          type: string
+          format: uri
+          title: Обложка книги (URL)
+          description: Ссылка на изображение обложки
+          maxLength: 200
+        category:
+          type: integer
+          nullable: true
+          title: Категория
+    PatchedCategoryDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        books:
+          type: array
+          items:
+            $ref: '#/components/schemas/Book'
+          readOnly: true
+        title:
+          type: string
+          title: Название категории
+          description: Название категории
+          maxLength: 255
+        description:
+          type: string
+          title: Описание категории
+          description: Описание категории
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
